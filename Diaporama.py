@@ -26,11 +26,11 @@ try:
 		options.filename = project
 
 	# init locations
-	projectDir = options.filename
+	projectDir = project
 	signalsFile = projectDir + os.sep + 'signals.csv'
 	audioFile = projectDir + os.sep + projectDir + '.flac'
 	imageDir = projectDir + os.sep + 'images'
-	outputFileName = 'alaska'
+	outputFileName = options.filename
 
 	# init video properties
 	width = int(options.width)

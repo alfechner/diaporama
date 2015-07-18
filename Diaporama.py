@@ -10,7 +10,8 @@ parser.add_option("-x", "--width", dest="width", default="300", help="output vid
 parser.add_option("-y", "--height", dest="height", default="200", help="output video height")
 
 (options, args) = parser.parse_args()
-
+print options
+print args
 try:
 
 	if len(args) < 1:
@@ -27,7 +28,7 @@ try:
 	# init locations
 	projectDir = options.filename
 	signalsFile = projectDir + os.sep + 'signals.csv'
-	audioFile = projectDir + os.sep + 'audio.flac'
+	audioFile = projectDir + os.sep + projectDir + '.flac'
 	imageDir = projectDir + os.sep + 'images'
 	outputFileName = 'alaska'
 
@@ -40,7 +41,7 @@ try:
 	renderer = Renderer(signalsReader, imageReader, audioFile, outputFileName)
 
 	renderer.render(width, height)
-	
+
 except StandardError:
 	parser.print_help()
 	raise

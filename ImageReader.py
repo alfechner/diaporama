@@ -41,6 +41,7 @@ class ImageReader:
 			matchString = match.group(0)
 			if matchString: 
 				index = int("%10d" % int(matchString))
+				break # use first match (i.e. for images like Image(2-4))
 
 		return index
 

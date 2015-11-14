@@ -14,35 +14,34 @@ print options
 print args
 try:
 
-	if len(args) < 1:
-		raise StandardError('no project directory specifed')
+    if len(args) < 1:
+        raise StandardError('no project directory specified.')
 
-	project = args[0]
+    project = args[0]
 
-	if not os.path.isdir(project):
-		raise StandardError('project directory could not be found')
+    if not os.path.isdir(project):
+        raise StandardError('project directory could not be found')
 
-	if options.filename is None:
-		options.filename = project
+    if options.filename is None:
+        options.filename = project
 
-	# init locations
-	projectDir = project
-	signalsFile = projectDir + os.sep + 'signals.csv'
-	audioFile = projectDir + os.sep + projectDir + '.flac'
-	imageDir = projectDir + os.sep + 'images'
-	outputFileName = options.filename
+    # init locations
+    projectDir = project
+    signalsFile = projectDir + os.sep + 'signals.csv'
+    audioFile = projectDir + os.sep + projectDir + '.flac'
+    imageDir = projectDir + os.sep + 'images'
+    outputFileName = options.filename
 
-	# init video properties
-	width = int(options.width)
-	height = int(options.height)
+    # init video properties
+    width = int(options.width)
+    height = int(options.height)
 
-	signalsReader = CsvReader(signalsFile)
-	imageReader = ImageReader(imageDir)
-	renderer = Renderer(signalsReader, imageReader, audioFile, outputFileName)
+    signalsReader = CsvReader(signalsFile)
+    imageReader = ImageReader(imageDir)
+    renderer = Renderer(signalsReader, imageReader, audioFile, outputFileName)
 
-	renderer.render(width, height)
+    renderer.render(width, height)
 
 except StandardError:
-	parser.print_help()
-	raise
-	exit(-1)
+    parser.print_help()
+    raise

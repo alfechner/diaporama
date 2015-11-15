@@ -9,6 +9,8 @@ parser.add_option("-f", "--file", dest="filename", help="output filename (withou
 parser.add_option("-a", "--audio-file", dest="audio_filename", help="audio file", metavar="FILE")
 parser.add_option("-x", "--width", dest="width", default="300", help="output video width")
 parser.add_option("-y", "--height", dest="height", default="200", help="output video height")
+parser.add_option("-w", "--workers", dest="workers", default=4, help="number of workers for resizing images")
+
 
 (options, args) = parser.parse_args()
 print options
@@ -21,12 +23,17 @@ try:
     project = args[0]
 
     if not os.path.isdir(project):
-        raise StandardError('project directory could not be found')
+        raise StandardError('project directory could not be found.')
 
     audio_file = options.audio_filename
 
     if not os.path.isfile(audio_file):
-        raise StandardError('audio file could not be found')
+        raise StandardError('audio file could not be found.')
+
+    workers = options.workers
+
+    if not type(workers) == int:
+        raise StandardError('no valid amount of workers set.')
 
     if options.filename is None:
         options.filename = project
@@ -45,7 +52,7 @@ try:
     image_reader = ImageReader(image_dir)
     renderer = Renderer(signals_reader, image_reader, audio_file, output_file_name)
 
-    renderer.render(width, height)
+    renderer.render(width, height, workers)
 
 except StandardError:
     parser.print_help()

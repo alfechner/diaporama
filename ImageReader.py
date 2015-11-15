@@ -1,6 +1,7 @@
 import re
 import os
-from PIL import Image
+from ImageResizer import ImageResizer
+import Queue
 
 
 class ImageReader:
@@ -19,14 +20,17 @@ class ImageReader:
 
         return images_paths
 
-    def resize_images(self, width, height, location):
+    def resize_images(self, width, height, location, workers):
         images = self.get_image_list()
+        queue = Queue.Queue()
+        from_directory = self._image_directory
+        to_directory = location
+
         for index in images:
-            image_name = images[index]
-            print 'resizing image ' + image_name + ' to ' + str(width) + 'x' + str(height)
-            image = Image.open(self._image_directory + os.sep + image_name)
-            image = image.resize((width, height), Image.ANTIALIAS)
-            image.save(location + os.sep + image_name, quality=100)
+            queue.put(images[index])
+
+        image_resizer = ImageResizer(queue, from_directory, to_directory)
+        image_resizer.resize(width, height, workers)
 
     def _order_images_by_name(self, images):
         tmp_images = {}

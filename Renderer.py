@@ -14,11 +14,11 @@ class Renderer:
         self._audioFile = audio_file
         self._outputFileName = output_file_name
 
-    def render(self, width, height):
+    def render(self, width, height, workers):
         self._create_tmp_dir()
         self._create_offset_image(width, height)
 
-        self._imageReader.resize_images(width, height, self._tmp_image_dir)
+        self._imageReader.resize_images(width, height, self._tmp_image_dir, workers)
         images = self._imageReader.get_image_list()
         signals = self._signalsReader.get_rows()
 

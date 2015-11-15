@@ -14,6 +14,6 @@ class CsvReader:
 
             for row in reader:
                 rows[i] = row
-                i += 1
+                i += 1  
 
         return rows

@@ -46,7 +46,7 @@ class Renderer:
         command = "ffmpeg -framerate 1 -pattern_type glob -i '"
         command += self._tmpLinkDir + os.sep + "*.jpg' -i " + self._audioFile
         command += " -c:v libx264 -c:a aac -strict -2 -r 30 -pix_fmt yuv420p "
-        command += self._outputFileName + ".mp4"
+        command += self._outputFileName + ".mkv"
 
         os.system(command)
 
